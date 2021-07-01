@@ -1,0 +1,153 @@
+{
+  "application-name": "Let's Learn !",
+  "connection":{
+    "signin": "S'enregistrer",
+    "login": "Se connecter",
+    "discover": "Découvrir",
+    "username": "Nom",
+    "password": "Mot de Passe",
+    "email": "Email",
+    "or": "Ou*",
+    "usernameError": "Veuillez entrer un nom",
+    "usernameOrEmailError": "Veuillez entrer un nom ou une adresse email",
+    "emailError": "Veuillez entrer une adresse email valide",
+    "emailInvalidError": "Merci d'entrer une adresse email valide",
+    "passwordError": "Veuillez entrer votre mot de passe",
+    "visitor": "Simplement essayer !",
+    "moreDetails": "Plus de Détail",
+    "subject": "Sujet",
+    "send": "Envoyer mon message"
+  },
+  "landingPage": {
+    "sections": {
+      "information": "Informations",
+      "stat": "Statistiques",
+      "team": "Equipe",
+      "contact": "Contact"
+    },
+    "title": "Bienvenue sur LLA!",
+    "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+    "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+    "language": "Langue",
+    "targetLanguage": "Langue cible",
+    "level": "Niveau",
+    "featureCards": {
+      "exercice": {
+        "title": "Entrainez vous sur des exercices personalisés",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "deck": {
+        "title":"Gérez vos decks de mots",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "news": {
+        "title":"Suivez les actualités",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "culture": {
+        "title":"Découvrez de nouvelles cultures",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "discuss": {
+        "title":"Discutez avec les autres Utilisateurs",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "share": {
+        "title":"Partagez vos expériences",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    },
+    "teamMember": {
+      "aurelien": {
+        "name": "Aurelien Martin",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "lulu": {
+        "name": "Lulu Wang",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    },
+    "snackbar": {
+      "success": "Merci pour votre message, nous y répondrons aussi vite que possible !",
+      "error": "Votre message n'a pas pu être envoyé, merci de réessayer plus tard"
+    }
+  },
+  "dictionaryPage": {
+    "title": "Dictionaire",
+    "subject": "Sujet",
+    "alphabeticOrder": "Ordre Alphabétique",
+    "levelOrder": "Ordre par Niveau",
+    "filter": "filtre",
+    "wordListPanel": {
+      "title": "Gestionnaire de Liste",
+      "wordLists": "Liste de mots",
+      "words": "Mots",
+      "add": "Ajouter",
+      "save": "Sauvegarder",
+      "newList": "Nouvelle Liste"
+    },
+    "wordList": {
+      "owner": "Créée par",
+      "name": "Nom",
+      "subject": "Sujets",
+      "level": "Niveau",
+      "rank": "Rang",
+      "comments": "Commentaires",
+      "status": "Statut",
+      "validation":"Validation",
+      "validated": "Validée",
+      "pending": "En attente de validation",
+      "visibility": "Visibilitée"
+    },
+    "word": {
+      "owner": "Créée par",
+      "name": {
+        "Fr": "Mot",
+        "En": "Mot",
+        "Cn": "Caractère"
+      },
+      "internationalName": {
+        "Fr": "Ecriture latine",
+        "En": "Ecriture latine",
+        "Cn": "Pinyin"
+      },
+      "subject": "Sujets",
+      "level": "Niveau",
+      "rank": "Rang",
+      "comments": "Commentaires",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validée",
+      "pending": "En attente de validation",
+      "visibility": "Visibilitée"
+    }
+  },
+  "language": {
+    "Fr": "Francais",
+    "Cn": "Chinois",
+    "En": "Anglais",
+    "Es": "Espagnol",
+    "Ge": "Allemand",
+    "Ko": "Coréen",
+    "Jp": "Japonais"
+  },
+  "subjects":{
+    "general": "General",
+    "food": "Nourriture",
+    "daily": "Vie quotidienne",
+    "house": "Maison",
+    "number": "Nombre"
+  },
+  "visibility": {
+    "visitor": "Tout le monde", 
+    "loggedin": "Personnes connectées",
+    "owner": "Uniquement moi"
+  },
+  "moduleBlock": {
+    "news": "Nouvelles",
+    "fastExercice": "Exercice Rapide",
+    "wordOfTheDay": "Mot du Jour",
+    "manga": "Manga",
+    "culture": "Culture"
+  }
+}

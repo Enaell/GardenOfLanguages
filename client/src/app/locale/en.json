@@ -1,0 +1,153 @@
+{
+  "application-name": "Let's Learn!",
+  "connection":{
+    "signin": "Signin",
+    "login": "Login",
+    "discover": "Discover",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "or": "Or*",
+    "usernameError": "Please fill the username field",
+    "usernameOrEmailError": "Please fill the username or email field",
+    "emailError": "Please fill the email field with a valid email address",
+    "emailInvalidError": "Please enter a valid email address",
+    "passwordError": "Please fill the password field",
+    "visitor": "Try it out!",
+    "moreDetails": "More Details",
+    "subject": "Subject",
+    "send": "Send my message"
+  },
+  "landingPage": {
+    "sections": {
+      "information": "Informations",
+      "stat": "Statistiques",
+      "team": "Team",
+      "contact": "Contact"
+    },
+    "title": "Welcome to LLA!",
+    "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+    "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+    "language": "Language",
+    "targetLanguage": "Target language",
+    "level": "Level",
+    "featureCards": {
+      "exercice": {
+        "title": "Train on personalized exercises",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "deck": {
+        "title":"Manage your word decks",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "news": {
+        "title":"Follow the news",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "culture": {
+        "title":"Discover new cultures",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "discuss": {
+        "title":"Discuss with the other users",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "share": {
+        "title":"Share your experiences",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    },
+    "teamMember": {
+      "aurelien": {
+        "name": "Aurelien Martin",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "lulu": {
+        "name": "Lulu Wang",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "snackbar": {
+        "success": "Thank you for your message, we will reply you as soon as possible",
+        "error": "Couldn't send your message, please try again later"
+      }
+    }
+  },
+  "dictionaryPage": {
+    "title": "Dictionary",
+    "subject": "Subject",
+    "alphabeticOrder": "Alphabetic Order",
+    "levelOrder": "Level Order",
+    "filter": "filtre",
+    "wordListPanel": {
+      "title": "List Manager",
+      "wordLists": "Word lists",
+      "words": "Words",
+      "add": "Add",
+      "save": "Save",
+      "newList": "New List"
+    },
+    "wordList": {
+      "owner": "Created by",
+      "name": "Name",
+      "subject": "Subject",
+      "level": "Level",
+      "rank": "Rank",
+      "comments": "Comments",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validated",
+      "pending": "Pending Validation",
+      "visibility": "Visibility"
+    },
+    "word": {
+      "owner": "Created by",
+      "name": {
+        "Fr": "Word",
+        "En": "Word",
+        "Cn": "Charactere"
+      },
+      "internationalName": {
+        "Fr": "Latine writing",
+        "En": "Latine writing",
+        "Cn": "Pinyin"
+      },
+      "subject": "Subject",
+      "level": "Level",
+      "rank": "Rank",
+      "comments": "Comments",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validated",
+      "pending": "Pending Validation",
+      "visibility": "Visibility"
+    }
+  },
+  "language": {
+    "Fr": "French",
+    "Cn": "Chinese",
+    "En": "English",
+    "Es": "Spanish",
+    "Ge": "German",
+    "Ko": "Korean",
+    "Jp": "Japanese"
+  },
+  "subjects": {
+    "general": "General",
+    "food": "Food",
+    "daily": "Daily",
+    "house": "House",
+    "number": "Number"
+  },
+  "visibility": {
+    "visitor": "Everybody", 
+    "loggedin": "Registered people",
+    "owner": "Only me"
+  },
+  "moduleBlock": {
+    "news": "News",
+    "fastExercice": "Quick Exercice",
+    "wordOfTheDay": "Word of the Day",
+    "manga": "Manga",
+    "culture": "Culture"
+  }
+}

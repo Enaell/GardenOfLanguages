@@ -1,0 +1,153 @@
+{
+  "application-name": "Let's Learn!",
+  "connection":{
+    "signin": "注册",
+    "login": "登陆",
+    "discover": "Discover",
+    "username": "用户名",
+    "password": "密码",
+    "email": "邮件",
+    "or": "或者*",
+    "usernameError": "请完整用户名信息",
+    "usernameOrEmailError": "请完整用户名及邮箱信息",
+    "emailError": "请填写有效邮箱信息",
+    "emailInvalidError": "请填写有效邮箱",
+    "passwordError": "请填写有效密码",
+    "visitor": "无账号登陆",
+    "moreDetails": "More Details",
+    "subject": "Subject",
+    "send": "Send my message"
+  },
+  "landingPage": {
+    "sections": {
+      "information": "Informations",
+      "stat": "Statistiques",
+      "team": "Team",
+      "contact": "Contact"
+    },
+    "title": "欢迎!",
+    "welcomeText1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,",
+    "welcomeText2": "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur",
+    "language": "语言",
+    "targetLanguage": "您所期望的目标语言",
+    "level": "Level:",
+    "featureCards": {
+      "exercice": {
+        "title": "Train on personalized exercises",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "deck": {
+        "title":"Manage your word decks",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "news": {
+        "title":"Follow the news",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "culture": {
+        "title":"Discover new cultures",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "discuss": {
+        "title":"Discuss with the other users",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "share": {
+        "title":"Share your experiences",
+        "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    },
+    "teamMember": {
+      "aurelien": {
+        "name": "Aurelien Martin",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      },
+      "lulu": {
+        "name": "Lulu Wang",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"
+      }
+    },
+    "snackbar": {
+      "success": "Thank you for your message, we will reply you as soon as possible",
+      "error": "Couldn't send your message, please try again later"
+    }
+  },
+  "dictionaryPage": {
+    "title": "字典",
+    "subject": "按主题分类",
+    "alphabeticOrder": "按字母表排序",
+    "levelOrder": "简易程度",
+    "filter": "过滤筛选",
+    "wordListPanel": {
+      "title": "List Manager",
+      "wordLists": "Word lists",
+      "words": "Words",
+      "add": "加",
+      "save": "Save",
+      "newList": "New List"
+    },
+    "wordList": {
+      "owner": "Created by",
+      "name": "Name",
+      "subject": "Subject",
+      "level": "Level",
+      "rank": "Rank",
+      "comments": "Comments",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validated",
+      "pending": "Pending Validation",
+      "visibility": "Visibility"
+    },
+    "word": {
+      "owner": "Created by",
+      "name": {
+        "Fr": "Word",
+        "En": "Word",
+        "Cn": "Charactere"
+      },
+      "internationalName": {
+        "Fr": "Latine writing",
+        "En": "Latine writing",
+        "Cn": "Pinyin"
+      },
+      "subject": "Subject",
+      "level": "Level",
+      "rank": "Rank",
+      "comments": "Comments",
+      "status": "Status",
+      "validation":"Validation",
+      "validated": "Validated",
+      "pending": "Pending Validation",
+      "visibility": "Visibility"
+    }
+  },
+  "language": {
+    "Fr": "法语",
+    "Cn": "中文",
+    "En": "英语",
+    "Es": "Spanish",
+    "Ge": "German",
+    "Ko": "Korean",
+    "Jp": "Japanese"
+  },
+  "subjects": {
+    "general": "General",
+    "food": "Food",
+    "daily": "Daily",
+    "house": "House",
+    "number": "Number"
+  },
+  "visibility": {
+    "visitor": "Everybody", 
+    "loggedin": "Registered people",
+    "owner": "Only me"
+  },
+  "moduleBlock": {
+    "news": "News",
+    "fastExercice": "Quick Exercice",
+    "wordOfTheDay": "Word of the Day",
+    "manga": "Manga",
+    "culture": "Culture"
+  }
+}
