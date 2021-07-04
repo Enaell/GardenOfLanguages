@@ -154,6 +154,7 @@ export function Layout(props: LayoutType) {
     const Element = React.createElement(element || 'div');
 
     // @ts-ignore error TS2590: Expression produces a union type that is too complex to represent.
+    // eslint-disable-next-line
     return (<Element.type ref={componentRef} style={layoutStyles} className={classNames} {...ownProps}>
         {props.children}
     </Element.type>);

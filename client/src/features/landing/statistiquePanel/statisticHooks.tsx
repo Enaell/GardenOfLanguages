@@ -1,8 +1,7 @@
-import {Ball} from './types';
-import { LanguageType, MetricName } from '../../common/types';
-import { shuffleArray, plusOrMinus } from '../../common/utils';
+import { Ball, BallParams, MetricName } from './types';
 import { useEffect, useMemo, useState } from 'react';
-import { statBallSize, ballIntersections, isOnFreePlace, getGap, shapePadding } from './utils';
+import { statBallSize, ballIntersections, isOnFreePlace, getGap, shapePadding, shuffleArray, plusOrMinus } from './utils';
+import { LanguageType } from '../../../app/types/language';
 
 const panelWidth = 600;
 const panelHeight = 480;
@@ -113,30 +112,30 @@ function generateBalls(balls?: { value: number;  title: MetricName; color: strin
 export function useStatBalls(language: LanguageType) {
 
   useEffect(() => {
-    const ApiBalls = [
+    const ApiBalls: BallParams = [
       {
         value: 558,
-        title: 'wordNumber' as MetricName,
+        title: 'wordNumber',
         color: '#1e42a78f'
       },
       {
         value: 3,
-        title: 'cultureArticles' as MetricName,
+        title: 'cultureArticles',
         color: '#1e9aa78f'
       },
       {
         value: 2,
-        title: 'learners' as MetricName,
+        title: 'learners',
         color: '#b423348f'
       },
       {
         value: 60,
-        title: 'deckNumber' as MetricName,
+        title: 'deckNumber',
         color: '#72a71e8f'
       },
       {
         value: 20,
-        title: 'natives' as MetricName,
+        title: 'natives',
         color: '#a75d1e8f'
       },
     ];

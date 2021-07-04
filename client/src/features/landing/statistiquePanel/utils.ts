@@ -1,6 +1,4 @@
-import { MetricName } from "../../common/types";
-import { plusOrMinus } from "../../common/utils";
-import { Ball, Circle } from "./types";
+import { Ball, Circle, MetricName } from "./types";
 
 const ballMaxSize = 250;
 const ballMinSize = 100;
@@ -77,4 +75,20 @@ export function getGap( minGap: number, maxGap: number){
   const y = Math.sqrt(radius * radius - x * x) * plusOrMinus();
 
   return {left : x, top: y}
+}
+
+export function shuffleArray<T>(array:T[]) {
+  let newArray = [...array];
+  for(let i = newArray.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * i)
+    const temp = newArray[i]
+    newArray[i] = newArray[j]
+    newArray[j] = temp
+  }
+
+  return newArray;
+}
+
+export function plusOrMinus(){
+  return Math.random() >  0.5 ? 1 : -1;
 }

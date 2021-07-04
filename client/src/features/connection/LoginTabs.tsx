@@ -22,6 +22,8 @@ const TabsWrapper = ({ orientation, style, children }: {
 }
 </>)
 
+const connectionTypes : ("visitor" | "register" | "auth")[] = [ "visitor", "register", "auth" ];
+
 export const LoginTabs = ({
   orientation,
   visitorOption,
@@ -33,7 +35,7 @@ export const LoginTabs = ({
 }) => {
 
   const dispatch = useAppDispatch();
-  const tab = useAppSelector(logginModalState).tab
+  const { tab } = useAppSelector(logginModalState)
   
   useEffect(() => {
     if (visitorOption)
@@ -47,7 +49,7 @@ export const LoginTabs = ({
       <Tabs
         orientation={orientation}
         value={tab}
-        onChange={(newTab: any) => dispatch(changeTab(newTab))}
+        onChange={(_event, newTab: number) => dispatch(changeTab(connectionTypes[newTab]))}
         indicatorColor='primary'
         textColor='primary'
         centered

@@ -2,7 +2,7 @@ import React from 'react';
 import frPict from '../ressources/Fr.jpg';
 import enPict from '../ressources/En.jpg';
 import cnPict from '../ressources/Cn.jpg';
-import { LanguageType } from '../../common/types';
+import { LanguageType } from '../../../app/types/language';
 import { Box, CardMedia, makeStyles, Theme } from '@material-ui/core';
 
 

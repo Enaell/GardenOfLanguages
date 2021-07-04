@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter } from 'react-router-dom'
+
 import counterpart from 'counterpart';
 import localeFr from './app/locale/fr.json';
 import localeEn from './app/locale/en.json';
@@ -6,6 +8,10 @@ import localeCn from './app/locale/cn.json';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { Column } from './features/common/Flexbox';
+import { Routes } from './app/routes/Routes';
+import { useAppSelector } from './app/redux/hooks';
+import { userState } from './app/redux/userSlice';
 
 counterpart.registerTranslations('En', localeEn);
 counterpart.registerTranslations('Fr', localeFr);
@@ -13,9 +19,19 @@ counterpart.registerTranslations('Cn', localeCn);
 
 
 function App() {
+
+  counterpart.setLocale('Fr');
+
+  const { language } = useAppSelector(userState)
+
+  useEffect(() => {
+    language ? counterpart.setLocale(language)
+    : counterpart.setLocale('Fr');
+  }, [language]);
+
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -59,7 +75,14 @@ function App() {
             React Redux
           </a>
         </span>
-      </header>
+      </header> */}
+      <BrowserRouter>
+        <Column horizontal='center' width='100%' style={{backgroundColor: '#f9f9f9'}}>
+          {/* <Navbar /> */}
+          <Routes />
+          {/* <Footer /> */}
+        </Column>
+      </BrowserRouter>
     </div>
   );
 }

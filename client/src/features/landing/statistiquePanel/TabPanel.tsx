@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row } from '../../common/Flexbox';
-import { LanguageType } from '../../common/types';
+import { LanguageType } from '../../../app/types/language';
 import { StatBalls } from './StatBalls';
 import { CountryPict } from './CountryPict';
 

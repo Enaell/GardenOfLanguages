@@ -1,10 +1,9 @@
 import React from 'react';
-import { Column, Row } from '../../common/Flexbox';
+import { Row } from '../../common/Flexbox';
 import { Theme, makeStyles, AppBar, Tabs, Tab } from '@material-ui/core';
-import { LanguageType } from '../../common/types';
-import { languages } from '../../common/utils';
-
 import { TabPanel } from './TabPanel';
+import { languages } from '../../../app/utils/language';
+import { LanguageType } from '../../../app/types/language';
 
 
 function a11yProps(language: LanguageType) {

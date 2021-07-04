@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, Typography, CardContent } from '@material-ui/core';
 import { Column } from '../../common/Flexbox';
 import { classes } from './styles'
-import theme from '../../../theme';
+import theme from '../../../app/theme';
 
 import LayersOutlinedIcon from '@material-ui/icons/LayersOutlined';
 import CardTravelIcon from '@material-ui/icons/CardTravel';

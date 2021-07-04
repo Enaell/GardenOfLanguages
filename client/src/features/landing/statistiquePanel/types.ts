@@ -1,5 +1,3 @@
-import { MetricName } from "../../common/types"
-
 export type Circle = {
   x: number;
   y: number;
@@ -25,3 +23,11 @@ export type Ball = {
   value: number;
   color: string;
 }
+
+export type MetricName = 'wordNumber' | 'deckNumber' | 'natives' | 'learners' | 'cultureArticles';
+
+export type BallParams = {
+  value: number;
+  title: MetricName,
+  color: string
+}[]

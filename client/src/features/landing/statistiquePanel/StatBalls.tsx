@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@material-ui/core';
 import { Column } from '../../common/Flexbox';
-import { LanguageType } from '../../common/types';
+import { LanguageType } from '../../../app/types/language';
 import { useStatBalls } from './statisticHooks';
 import { Ball } from './types';
 

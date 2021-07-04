@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, MutableRefObject } from 'react';
 import { useSelector } from 'react-redux'
-import { Column } from '../common/Flexbox';
+import { Column } from '../../features/common/Flexbox';
 
-import { WelcomeSection } from './welcomeSection/WelcomeSection';
-import { SectionPaper } from './SectionPaper';
+import { WelcomeSection } from '../../features/landing/welcomeSection/WelcomeSection';
+import { SectionPaper } from '../../features/landing/SectionPaper';
 
 function scrollToSection(
   refs: React.MutableRefObject<{[key: string]: HTMLDivElement | null;}>
