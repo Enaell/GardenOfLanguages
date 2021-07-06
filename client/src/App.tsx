@@ -5,13 +5,13 @@ import counterpart from 'counterpart';
 import localeFr from './app/locale/fr.json';
 import localeEn from './app/locale/en.json';
 import localeCn from './app/locale/cn.json';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
 import './App.css';
 import { Column } from './features/common/Flexbox';
 import { Routes } from './app/routes/Routes';
 import { useAppSelector } from './app/redux/hooks';
 import { userState } from './app/redux/userSlice';
+import { Navbar } from './features/navbar/Navbar';
+import Snackbar from './features/snackbar/Snackbar';
 
 counterpart.registerTranslations('En', localeEn);
 counterpart.registerTranslations('Fr', localeFr);
@@ -78,7 +78,8 @@ function App() {
       </header> */}
       <BrowserRouter>
         <Column horizontal='center' width='100%' style={{backgroundColor: '#f9f9f9'}}>
-          {/* <Navbar /> */}
+          <Navbar />
+          <Snackbar />
           <Routes />
           {/* <Footer /> */}
         </Column>

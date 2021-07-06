@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { unstable_createMuiStrictModeTheme as createMuiTheme } from '@material-ui/core';
 
 const theme = createMuiTheme({
   palette: {
@@ -6,21 +6,17 @@ const theme = createMuiTheme({
       light: '#78d851',
       dark: '#007600',
       main: '#41a61d',
-      contrastText: 'white',
+      contrastText: '#fff',
     },
     secondary:{
-      light: '#f75d46',
-      main: '#e4472f',
-      dark: '#bf2f19',
-      contrastText: 'white',
+      light: '#fff',
+      main: '#e8f5e9',
+      dark: '#b6c2b7',
+      contrastText: '#424242',
     },
     background: {
       default: '#f9f9f9',
     }
-  },
-  typography: {
-    fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif'
-  }
-});
+  },});
 
 export default theme;

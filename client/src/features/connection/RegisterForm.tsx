@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { userApi } from '../../app/apiClient/userApi';
 import { login, userState } from '../../app/redux/userSlice';
 import { LoadingButton } from '../common/Buttons';
-import { toggleModal } from '../../app/redux/logginModalSlice';
+import { toggleModal } from '../../app/redux/connectionSlice';
 
 type RegisterFormProps = { 
   isModal?: boolean;
@@ -124,7 +124,7 @@ export const RegisterForm = ({ isModal = false }: RegisterFormProps) => {
           </Select>
         </FormControl>
       </Row>
-      <Row>
+      <Row style={{padding: '20px 0'}}>
         {isModal && <Button onClick={() => dispatch(toggleModal(false))} color="primary">
           Cancel
         </Button>}

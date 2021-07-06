@@ -2,14 +2,17 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../../features/counter/counterSlice';
 import userReducer from '../redux/userSlice';
 import landingReducer from '../redux/landingSlice'
-import logginModalReducer from './logginModalSlice';
+import connectionReducer from './connectionSlice';
+import snackbarReducer from './snackbarSlice';
+
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     user: userReducer,
     landing: landingReducer,
-    logginModal: logginModalReducer
+    connection: connectionReducer,
+    snackbar: snackbarReducer,
   },
 });
 

@@ -7,7 +7,7 @@ import { fullNameLanguages, inputLanguage, languages } from '../../app/utils/lan
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { userState } from '../../app/redux/userSlice';
-import { toggleModal } from '../../app/redux/logginModalSlice';
+import { toggleModal } from '../../app/redux/connectionSlice';
 import { LoadingButton } from '../common/Buttons';
 import { discover } from '../../app/redux/landingSlice';
 import { connectAsVisitor } from '../../app/redux/userSlice';
@@ -27,15 +27,6 @@ export const LogAsVisitorForm = ({ isModal = false }: LogAsVisitorFormProps) => 
   const [targetLanguage, setTargetLanguage] = useState(userTargetLanguage);
   const [targetLanguageError, setTargetLanguageError] = useState(false);
 
-  useEffect(() => {
-    if (language)
-      setLanguageError(false);
-  }, [language]);
-
-  useEffect(() => {
-    if (targetLanguage)
-      setTargetLanguageError(false);
-  }, [targetLanguage]);
 
   function onConnectAsVisitor() {
     const lError = !language;
@@ -78,7 +69,7 @@ export const LogAsVisitorForm = ({ isModal = false }: LogAsVisitorFormProps) => 
           </Select>
         </FormControl>
       </Row>
-      <Row>
+      <Row style={{padding: '20px 0'}}>
         {isModal && <Button onClick={() => dispatch(toggleModal(false))} color="primary">
               Cancel
         </Button>}

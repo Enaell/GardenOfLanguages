@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
 import { userApi } from '../../app/apiClient/userApi';
 import { login } from '../../app/redux/userSlice';
 import { LoadingButton } from '../common/Buttons';
-import { toggleModal } from '../../app/redux/logginModalSlice';
+import { toggleModal } from '../../app/redux/connectionSlice';
 
 type RegisterFormProps = { 
   isModal?: boolean;

@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import translate from 'counterpart';
-import Tabs from '@material-ui/core/Tabs';
+import { Tabs } from '@material-ui/core';
 import { Column, Row } from '../common/Flexbox';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
-import { changeTab, logginModalState } from '../../app/redux/logginModalSlice';
+import { changeTab, connectionState, modalTabs } from '../../app/redux/connectionSlice';
 import { Tab } from '@material-ui/core';
 import { LogAsVisitorForm } from './LogAsVisitorForm';
 import { RegisterForm } from './RegisterForm';
@@ -11,7 +11,7 @@ import { AuthForm } from './AuthForm';
 import { useEffect } from 'react';
 
 const TabsWrapper = ({ orientation, style, children }: {
-  orientation: 'vertical' | 'horizontal';
+  orientation?: 'vertical' | 'horizontal';
   style?: React.CSSProperties;
   children: React.ReactNode;
 }) => (
@@ -22,38 +22,33 @@ const TabsWrapper = ({ orientation, style, children }: {
 }
 </>)
 
-const connectionTypes : ("visitor" | "register" | "auth")[] = [ "visitor", "register", "auth" ];
+const connectionTypes : modalTabs[] = [ "visitor", "register", "auth" ];
 
 export const LoginTabs = ({
-  orientation,
-  visitorOption,
+  orientation = 'horizontal',
+  visitorOption = false,
   style,
 }: {
-  orientation: 'vertical' | 'horizontal';
+  orientation?: 'vertical' | 'horizontal';
   visitorOption?: boolean; 
-  style: React.CSSProperties,
+  style?: React.CSSProperties,
 }) => {
 
   const dispatch = useAppDispatch();
-  const { tab } = useAppSelector(logginModalState)
+  const { tab } = useAppSelector(connectionState)
   
-  useEffect(() => {
-    if (visitorOption)
-      dispatch(changeTab('visitor'));
-    else
-      dispatch(changeTab('register'))
-  }, [])
-
   return (
-    <TabsWrapper orientation={orientation}>
+    <TabsWrapper style={style} orientation={orientation}>
       <Tabs
         orientation={orientation}
-        value={tab}
-        onChange={(_event, newTab: number) => dispatch(changeTab(connectionTypes[newTab]))}
+        value={visitorOption ? connectionTypes.indexOf(tab): connectionTypes.indexOf(tab) - 1}
+        onChange={(_event, newTab: number) => {
+          dispatch(changeTab(connectionTypes[newTab + (visitorOption ? 0 : 1)]))
+        }}
         indicatorColor='primary'
         textColor='primary'
         centered
-        style={orientation === 'vertical' ? {paddingTop: '15px'}: {}}
+        style={orientation === 'vertical' ? {padding: '15px 0'}: {}}
       >
         {visitorOption && <Tab label= {translate('connection.discover')}/>}
         <Tab label={translate('connection.signin')}/>
