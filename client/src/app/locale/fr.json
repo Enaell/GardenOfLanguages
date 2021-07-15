@@ -16,7 +16,11 @@
     "visitor": "Simplement essayer !",
     "moreDetails": "Plus de Détail",
     "subject": "Sujet",
-    "send": "Envoyer mon message"
+    "send": "Envoyer mon message",
+    "snackbar": {
+      "authError": "Adresse email ou mot de passe erronés",
+      "registerError": "Impossible de vous enregistrer. Veuillez essayer plus tard"
+    }
   },
   "landingPage": {
     "sections": {

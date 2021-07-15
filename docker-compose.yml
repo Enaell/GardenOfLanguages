@@ -1,0 +1,55 @@
+version: "3"
+services:
+    client:
+        container_name: client
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        image: enael/llaclient
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./client:/usr/src/app
+        stdin_open: true
+    gateway:
+        container_name: gateway
+        build:
+            context: ./gateway
+            dockerfile: Dockerfile
+        image: enael/llagateway
+        ports:
+            - "3020:3020"
+            - "4020:4020"
+        volumes:
+            - ./gateway:/usr/src/app
+        stdin_open: true
+        networks: 
+            - microservices
+    users:
+        container_name: users
+        build:
+            context: ./users
+            dockerfile: Dockerfile
+        image: enael/llausers
+        ports:
+            - "3010:3010"
+            - "4010:4010"
+        volumes:
+            - ./users:/usr/src/app
+        links:
+            - mongo-users
+        networks: 
+            - microservices
+    mongo-users:
+        container_name: mongo-users
+        image: mongo
+        volumes: 
+            - ~/mongo/data:/data/db
+        ports:
+            - "27019:27017"
+        networks: 
+            - microservices
+networks: 
+    microservices:
+        driver: bridge
+

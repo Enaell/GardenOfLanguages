@@ -1,6 +1,6 @@
 import { Color } from "@material-ui/lab/Alert";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
+import { AppThunk, RootState } from "./store";
 
 
 const initialState: { open: boolean; severity: Color, message?: string } = {
@@ -16,7 +16,6 @@ export const connectionSlice = createSlice({
       state.severity = action.payload.severity;
       state.message = action.payload.message;
       state.open = true;
-      setTimeout(() => {state.open = false}, 5000);
     },
     closeSnackbar: (state) => {
       state.open = false;
@@ -24,7 +23,19 @@ export const connectionSlice = createSlice({
   }
 });
 
-export const { openSnackbar, closeSnackbar } = connectionSlice.actions;
+export const { closeSnackbar, openSnackbar } = connectionSlice.actions;
+
+
+export const isSnackbarOpen = (state: RootState) => state.snackbar.open;
+
+export const opensnackbar = (severity: Color, message: string): AppThunk => (
+  dispatch, getState
+) => {
+  dispatch(openSnackbar({ severity, message }))
+  setTimeout(() => {
+    if(isSnackbarOpen(getState()))
+      dispatch(closeSnackbar())}, 5000);
+}
 
 export const snackbarState = (state: RootState) => state.snackbar;
 

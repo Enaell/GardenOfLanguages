@@ -10,6 +10,7 @@ import { userApi } from '../../app/apiClient/userApi';
 import { login, userState } from '../../app/redux/userSlice';
 import { LoadingButton } from '../common/Buttons';
 import { toggleModal } from '../../app/redux/connectionSlice';
+import { opensnackbar } from '../../app/redux/snackbarSlice';
 
 type RegisterFormProps = { 
   isModal?: boolean;
@@ -48,13 +49,16 @@ export const RegisterForm = ({ isModal = false }: RegisterFormProps) => {
 
     if (!(usError || pError || eError || tlError || lError))
     {
+      try {
         const loggedUser = await userApi.register({username, email, password, language, targetLanguage});
         if (loggedUser.success)
           dispatch(login(loggedUser.message.user));
         else {
-          // dispatch({type: 'SET_NAV_SNACKBAR', payload: {variant: 'error', message: "Signin Error !"}});
-          // dispatch({type: 'TOGGLE_NAV_SNACKBAR'})
+          dispatch(opensnackbar('error', translate('connetion.snackbar.registerError')));
         }
+      } catch(e) {
+        dispatch(opensnackbar('error', translate('connetion.snackbar.registerError')));
+      }
     } 
   }
 
