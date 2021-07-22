@@ -44,5 +44,6 @@ export interface UserType {
   language: LanguageType,
   targetLanguage: LanguageType,
   password?: string,
-  levels?: {language: LanguageType, rank: number}[]
+  levels?: {language: LanguageType, rank: number}[],
+  createAt? : Date,
 }

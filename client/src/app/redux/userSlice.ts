@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import counterpart from 'counterpart';
+import { stat } from "fs";
 import { LanguageType } from "../types/language";
 import { UserType, UserboardType } from "../types/user";
 import { RootState } from "./store";
@@ -44,7 +45,18 @@ export const userSlice = createSlice({
   reducers: {
     logout: (state) => { state = initialState; },
     login: (state, action: PayloadAction<UserType>) => {
-      state = { ...state, ...action.payload };
+      console.log('REDUX - LOGIN ACTION')
+      console.log(action.payload)
+      //  state = { ...state, ...action.payload };
+      state.username = action.payload.username;
+      state.email = action.payload.email;
+      state.language = action.payload.language;
+      state.targetLanguage = action.payload.targetLanguage;
+      state.levels = action.payload.levels;
+      state.name = action.payload.name;
+      state.role = action.payload.role;
+      state.token = action.payload.token;
+      state.userboard = action.payload.userboard;
     },
     connectAsVisitor: (state, action: PayloadAction<{language: LanguageType, targetLanguage: LanguageType}>) => {
       counterpart.setLocale(action.payload.language)

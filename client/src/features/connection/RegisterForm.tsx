@@ -51,12 +51,16 @@ export const RegisterForm = ({ isModal = false }: RegisterFormProps) => {
     {
       try {
         const loggedUser = await userApi.register({username, email, password, language, targetLanguage});
+        console.log('LOGGED USER');
+        console.log(loggedUser);
         if (loggedUser.success)
           dispatch(login(loggedUser.message.user));
         else {
           dispatch(opensnackbar('error', translate('connetion.snackbar.registerError')));
         }
       } catch(e) {
+        console.log('ERROR ON REGISTER');
+        console.log(e)
         dispatch(opensnackbar('error', translate('connetion.snackbar.registerError')));
       }
     } 

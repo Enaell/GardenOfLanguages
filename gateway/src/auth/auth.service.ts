@@ -5,6 +5,7 @@ import { timeout, catchError } from 'rxjs/operators';
 import { TimeoutError, throwError } from 'rxjs';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDTO } from './create-user.dto';
+import { ResponseUserDTO } from './dto/response-user-dto';
 
 @Injectable()
 export class AuthService {
@@ -17,7 +18,7 @@ export class AuthService {
     Logger.log(email)
     Logger.log(password)
     try {
-      const loggingInfo = await this.client.send({ role: 'user', cmd: 'loggin' }, { email })
+      const loggingInfo = await this.client.send({ role: 'user', cmd: 'get' }, { email })
       .pipe(
         timeout(5000), 
         catchError(err => {
@@ -33,7 +34,8 @@ export class AuthService {
       Logger.log(loggingInfo);
       Logger.log(password);
       const allowed  = await compare(password, loggingInfo?.password)
-      return allowed ? loggingInfo.user : null;
+      Logger.log(allowed)
+      return allowed ? loggingInfo : null;
       
     } catch(e) {
       Logger.log('-----------------------------------')
@@ -50,7 +52,7 @@ export class AuthService {
     try {
       Logger.log('try create user')
       Logger.log(createUser)
-      const user = await this.client.send(
+      const user:ResponseUserDTO = await this.client.send(
         {role: 'user', cmd: 'create'}, 
         {...createUser, name: createUser.username, levels: [
           {"language": createUser.language, "rank": 6},
@@ -77,12 +79,18 @@ export class AuthService {
     }
   }
 
-  async login(user) {
+  async login(user: ResponseUserDTO) {
     // const payload = { user };
     Logger.log('AUTH login : return user with jwt Token')
     Logger.log(user);
     return {
-      ...user,
+      username: user.username,
+      name: user.name,
+      language: user.language,
+      targetLanguage: user.targetLanguage,
+      levels: user.levels,
+      userboard: user.userboard,
+      createAt: user.createAt,
       token: this.jwtService.sign(user)
     };
   }

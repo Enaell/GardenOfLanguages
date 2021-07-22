@@ -35,7 +35,7 @@ export const AuthForm = ({ isModal = false }: RegisterFormProps) => {
         try {
           const loggedUser = await userApi.auth(email, password);
           if (loggedUser.success)
-            dispatch(login(loggedUser.message.user));
+            dispatch(login(loggedUser.message));
           else {
             console.log('=================');
             console.log(loggedUser);
@@ -74,7 +74,7 @@ export const AuthForm = ({ isModal = false }: RegisterFormProps) => {
         {isModal && <Button onClick={() => dispatch(toggleModal(false))} color="primary">
           Cancel
         </Button>}
-        <LoadingButton className='whiteButton' variant='outlined' type='submit' onClick={() => onAuth()}> {translate('connection.signin')}</LoadingButton>
+        <LoadingButton className='whiteButton' variant='outlined' type='submit' onClick={() => onAuth()}> {translate('connection.login')}</LoadingButton>
       </Row>
   </Column>);
 }

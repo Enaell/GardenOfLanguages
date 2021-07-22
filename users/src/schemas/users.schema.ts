@@ -21,10 +21,10 @@ export class User {
   email: string;
 
   @Prop({ required: true, default: LANGUAGES.Fr})
-  language: string
+  language: string;
 
   @Prop({ required: true, default: LANGUAGES.Fr})
-  targetLanguage: string
+  targetLanguage: string;
 
   @Prop({ required: true, default: {language: LANGUAGES.Fr, level: 1}})
   levels: {language: string, level: number}[];
@@ -35,6 +35,11 @@ export class User {
 
   @Prop({ default: Date.now })
   createAt: Date;
+
+  @Prop({default: 'Customer'})
+  role: string;
+
+  
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -17,12 +17,14 @@ export function formatUserboard(blocks: Blocks) {
 
 export function formatUser(user: UserDocument) {
   return {
+    role: user.role,
     username: user.username,
     name: user.name,
+    password: user.password,
     language: user.language,
     targetLanguage: user.targetLanguage,
     levels: user.levels,
-    userboard: formatUserboard(user.userboard.blocks),
+    userboard: user.userboard?.blocks ? formatUserboard(user.userboard.blocks): undefined,
     createAt: user.createAt,
   }
 }
