@@ -160,7 +160,7 @@ export const UserBoard = () => {
         width={1300}>
           {userboard && (Object.keys(userboard) as ModuleNamesType[]).map((m) => {
             return ( 
-              <Column width='100%' >
+              <Column width='100%' key={m}>
                 <ModuleBlock 
                   onModify={onModify} 
                   setOnModify={setOnModify} 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { LayoutType, RowType, ColumnType } from '../../app/types/flexbox'
 
-export function Layout(props: LayoutType) {
-
+export const Layout = React.forwardRef((props: LayoutType, ref) => {
 
     const getMainAxisAlign = (value: string, stretchIncluded: boolean = false) => {
         switch (value) {
@@ -62,7 +61,6 @@ export function Layout(props: LayoutType) {
 
         breakpoints,
         className,
-        componentRef,
 
         element,
 
@@ -155,10 +153,10 @@ export function Layout(props: LayoutType) {
 
     // @ts-ignore error TS2590: Expression produces a union type that is too complex to represent.
     // eslint-disable-next-line
-    return (<Element.type ref={componentRef} style={layoutStyles} className={classNames} {...ownProps}>
+    return (<Element.type ref={ref} style={layoutStyles} className={classNames} {...ownProps}>
         {props.children}
     </Element.type>);
-}
+});
 
 export function Row (props: RowType) {
 
@@ -184,14 +182,16 @@ export function Row (props: RowType) {
     );
 }
 
-export function Column (props: ColumnType) {
+export const Column = React.forwardRef ((props: ColumnType, ref) => {
     const { reverse = false, vertical, horizontal, justifyContent, alignItems, alignSelf, alignContent,
         flex, flexGrow, flexShrink, flexBasis, ...ownProps } = props;
 
     const columnReverse = reverse;
 
     return (
-        <Layout column
+        <Layout 
+            ref={ref}
+            column
             columnReverse={columnReverse}
             alignItems={horizontal || alignItems}
             justifyContent={vertical || justifyContent}
@@ -205,4 +205,4 @@ export function Column (props: ColumnType) {
             {props.children}
         </Layout>
     );
-}
+})
