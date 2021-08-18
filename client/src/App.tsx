@@ -11,7 +11,7 @@ import { Routes } from './app/routes/Routes';
 import { useAppSelector } from './app/redux/hooks';
 import { userState } from './app/redux/userSlice';
 import { Navbar } from './features/navbar/Navbar';
-import Snackbar from './features/snackbar/Snackbar';
+import { CustomSnackbar } from './features/snackbar/Snackbar';
 
 counterpart.registerTranslations('En', localeEn);
 counterpart.registerTranslations('Fr', localeFr);
@@ -79,7 +79,7 @@ function App() {
       <BrowserRouter>
         <Column horizontal='center' width='100%' style={{backgroundColor: '#f9f9f9'}}>
           <Navbar />
-          <Snackbar />
+          <CustomSnackbar />
           <Routes />
           {/* <Footer /> */}
         </Column>

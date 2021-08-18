@@ -45,8 +45,6 @@ export const ContactPanel = () => {
   const [displayError, setDisplayError] = useState(false);
 
   function updateFields(fieldName: string, fieldValue: string) {
-    console.log(fieldValue);
-    console.log(!fieldValue);
     setFields({...fields, [fieldName]: fieldValue});
     if (fieldName === 'email')
       setError({...error, [fieldName]: (!fieldValue || !fieldValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i))});

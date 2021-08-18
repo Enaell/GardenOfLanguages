@@ -1,12 +1,15 @@
 import { LanguageType } from "./language";
 
-enum ModuleNames {
+
+export enum ModuleNames {
   NEWS = 'news',
   EXERCICE = 'fastExercice',
   WORD =  'wordOfTheDay',
   MANGA = 'manga',
   CULTURE = 'culture',
 }
+
+export type ModuleNamesType = keyof typeof ModuleNames
 
 enum BreakPoints {
   LG = 'lg',
@@ -27,7 +30,9 @@ export type userModule = {
 }
 
 export type UserboardType = {
-    [key in ModuleNames]?: userModule;
+//    [key in ModuleNames]?: userModule;
+  [key: string]: userModule;
+
 };
 
 export type RoleType = 'Admin' | 'Customer' | 'Moderator' | 'Visitor';

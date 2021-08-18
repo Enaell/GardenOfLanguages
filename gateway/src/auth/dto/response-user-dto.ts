@@ -1,5 +1,6 @@
 export class ResponseUserDTO {
   readonly username: string;
+  readonly role: string;
   readonly name: string;
   readonly password: string;
   readonly language: string;

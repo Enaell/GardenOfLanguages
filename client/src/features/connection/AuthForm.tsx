@@ -34,11 +34,10 @@ export const AuthForm = ({ isModal = false }: RegisterFormProps) => {
     {
         try {
           const loggedUser = await userApi.auth(email, password);
+          console.log(loggedUser)
           if (loggedUser.success)
             dispatch(login(loggedUser.message));
           else {
-            console.log('=================');
-            console.log(loggedUser);
             dispatch(opensnackbar('error', 'coucou'));
           }
         } catch (e) {

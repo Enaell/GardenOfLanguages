@@ -149,7 +149,6 @@ export function useStatBalls(language: LanguageType) {
   useMemo(() => {
     let padding = shapePadding(computedBalls, panelWidth, panelHeight);
     if (padding.left > 0) {
-      console.log(padding);
       setShappedBalls(computedBalls.map(ball => addPadding(ball, padding)));
     } else {
       let symetricBalls = computedBalls.map(ball => {

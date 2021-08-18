@@ -11,9 +11,10 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('/login')
-  async login(@Request() req) {
+  async login(@Request() req, @Res() res) {
     Logger.log('before Login')
-    return this.authService.login(req.user);
+    const user = await this.authService.login(req.user);
+    return res.status(HttpStatus.OK).json({message: "User logged", statusCode: 200, user})
   }
   
   @Post('/signin')
@@ -26,7 +27,8 @@ export class AuthController {
       })
   }
 
-  
+  @UseGuards(JWtAuthGuard)
+  @Get('')
   @UseGuards(JWtAuthGuard)
   @Get('/greet')
   async loggedIn(@AuthUser() user: any) {

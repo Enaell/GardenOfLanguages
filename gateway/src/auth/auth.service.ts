@@ -85,6 +85,7 @@ export class AuthService {
     Logger.log(user);
     return {
       username: user.username,
+      role: user.role,
       name: user.name,
       language: user.language,
       targetLanguage: user.targetLanguage,

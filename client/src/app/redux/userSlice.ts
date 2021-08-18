@@ -45,9 +45,6 @@ export const userSlice = createSlice({
   reducers: {
     logout: (state) => { state = initialState; },
     login: (state, action: PayloadAction<UserType>) => {
-      console.log('REDUX - LOGIN ACTION')
-      console.log(action.payload)
-      //  state = { ...state, ...action.payload };
       state.username = action.payload.username;
       state.email = action.payload.email;
       state.language = action.payload.language;

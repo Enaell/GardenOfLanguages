@@ -4,6 +4,7 @@ import userReducer from '../redux/userSlice';
 import landingReducer from '../redux/landingSlice'
 import connectionReducer from './connectionSlice';
 import snackbarReducer from './snackbarSlice';
+// import themeReducer from './themeSlice';
 
 
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     landing: landingReducer,
     connection: connectionReducer,
     snackbar: snackbarReducer,
+    // theme: themeReducer
   },
 });
 

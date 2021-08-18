@@ -5,10 +5,9 @@ import { ContactPanel } from './contactPanel/ContactPanel';
 import { Typography, Theme, makeStyles } from '@material-ui/core';
 import translate from 'counterpart';
 import { Column } from '../common/Flexbox';
-import { useSelector } from 'react-redux';
 import { StatisticsPanel } from './statistiquePanel/StatisticsPanel';
 
-function sectionColor(sectionName: string, theme: Theme) {
+function sectionColor(sectionName: string) {
   switch (sectionName) {
     case 'contact': 
       return {
@@ -75,13 +74,10 @@ const Section = ({sectionName}: {sectionName: string}) => {
 export const SectionPaper = ({ sectionName }: { 
   sectionName: string,
 }) => {
-
-  const theme = useSelector((state: any) => state.theme);
-
   const classes = useStyles();
 
-  const bgColor = sectionColor(sectionName, theme).background;
-  const textColor = sectionColor(sectionName, theme).color;
+  const bgColor = sectionColor(sectionName).background;
+  const textColor = sectionColor(sectionName).color;
 
   return (
     <Column className={classes[bgColor]} width='100%' horizontal='center' >

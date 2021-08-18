@@ -1,9 +1,10 @@
 import React, { useRef, useEffect, MutableRefObject } from 'react';
-import { useSelector } from 'react-redux'
 import { Column } from '../../features/common/Flexbox';
 
 import { WelcomeSection } from '../../features/landing/welcomeSection/WelcomeSection';
 import { SectionPaper } from '../../features/landing/SectionPaper';
+import { useAppSelector } from '../redux/hooks';
+import { landingState } from '../redux/landingSlice';
 
 function scrollToSection(
   refs: React.MutableRefObject<{[key: string]: HTMLDivElement | null;}>
@@ -25,7 +26,7 @@ export const sections = [ 'information', 'stat', 'team', 'contact' ];
 
 export const LandingPage = () => {
 
-  const { discover, section = sections[0] } = useSelector((state: any) => state.landing) as {discover: number, section: string}
+  const { discover, section = sections[0] } = useAppSelector(landingState);
 
   const topRef = useRef(null as unknown) as MutableRefObject<HTMLDivElement>;
   const refs = useRef({} as {[key: string]: HTMLDivElement | null });

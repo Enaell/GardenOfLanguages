@@ -1,5 +1,5 @@
 import React from 'react';
-import { Snackbar as MuiSnackbar } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useAppDispatch, useAppSelector } from '../../app/redux/hooks';
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function Snackbar() {
+export const CustomSnackbar = () => {
   const classes = useStyles();
 
   const { open, severity, message } = useAppSelector(snackbarState)
@@ -33,11 +33,11 @@ export default function Snackbar() {
 
   return (
     <div className={classes.root}>
-      <MuiSnackbar open={open} onClose={handleClose}>
+      <Snackbar open={open} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity}>
           { message }
         </Alert>
-      </MuiSnackbar>
+      </Snackbar>
     </div>
   );
 }
