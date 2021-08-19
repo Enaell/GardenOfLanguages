@@ -95,8 +95,16 @@ export const UserBoard = () => {
       userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
       // await userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
       setAddingModule(false);
-      setOnModify(false);
-  }  
+      // setOnModify(false);
+  }
+
+  const cancelModification = () => {
+    if (userboard)
+      setNewUserboard(userboard);
+    setOnModify(false);
+    setLayouts(layoutsAreResizable(layouts, false));
+  }
+
   const deleteModule = (moduleName: string ) => {
     let newModules = {...newUserboard};
     delete newModules[moduleName];
@@ -124,17 +132,14 @@ export const UserBoard = () => {
   }
 
   useEffect(()=> {
-    setLayouts(getBlocksLayoutsFromModule({...userboard}, onModify));
+    setLayouts(getBlocksLayoutsFromModule({...userboard}, false));
     setNewUserboard({...userboard});
+    setOnModify(false);
   }, [userboard])
   // useEffect(()=> {
   //   setLayouts(getBlocksLayoutsFromModule({...userModules}, onModify));
   //   setnewUserboard(userModules);
   // }, [userModules, onModify])
-
-  useEffect(() => {
-    setLayouts(layoutsAreResizable(layouts, onModify));
-  }, [onModify]);
   // useEffect(() => {
   //   setLayouts(layoutsAreResizable(layouts, onModify));
   // }, [onModify, layouts]);
@@ -163,13 +168,13 @@ export const UserBoard = () => {
               <Column width='100%' key={m}>
                 <ModuleBlock 
                   onModify={onModify} 
-                  setOnModify={setOnModify} 
+                  setOnModify={()=>{setLayouts(layoutsAreResizable(layouts, true)); setOnModify(true)}} 
                   name={ m }
                   language={language}
                   targetLanguage={targetLanguage}
                   deleteModule={deleteModule} 
                   saveModules={saveUserBoard}
-                  cancelModification={()=>{userboard && setNewUserboard(userboard); setOnModify(false);}}
+                  cancelModification={cancelModification}
                 /> 
               </Column>
             )}
@@ -178,9 +183,9 @@ export const UserBoard = () => {
       <ModifyPanel
         squareSide={marginWidth} 
         onModify={onModify}
-        setOnModify={setOnModify}
+        setOnModify={()=>{setLayouts(layoutsAreResizable(layouts, true));setOnModify(true)}}
         saveModules={saveUserBoard}
-        cancelModification={() => {userboard && setNewUserboard(userboard); setOnModify(false)}}
+        cancelModification={cancelModification}
         addOptions={getLayoutToAdd(newUserboard, gridLayouts, breakPoint)}
         handleAddSelect={moduleName => addModule(moduleName, gridLayouts)}
         addingModule={addingModule}
