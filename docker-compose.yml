@@ -44,7 +44,7 @@ services:
         container_name: mongo-users
         image: mongo
         volumes: 
-            - ~/mongo/data:/data/db
+            - /data/db
         ports:
             - "27019:27017"
         networks: 

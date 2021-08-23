@@ -12,3 +12,5 @@ export type BlockDimensions = {
   w: number,
   h: number
 }
+
+export type Userboard = {[key: string]: {[key:string]: BlockDimensions}}

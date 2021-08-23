@@ -95,7 +95,7 @@ export const UserBoard = () => {
       userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
       // await userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
       setAddingModule(false);
-      // setOnModify(false);
+
   }
 
   const cancelModification = () => {
@@ -136,21 +136,11 @@ export const UserBoard = () => {
     setNewUserboard({...userboard});
     setOnModify(false);
   }, [userboard])
-  // useEffect(()=> {
-  //   setLayouts(getBlocksLayoutsFromModule({...userModules}, onModify));
-  //   setnewUserboard(userModules);
-  // }, [userModules, onModify])
-  // useEffect(() => {
-  //   setLayouts(layoutsAreResizable(layouts, onModify));
-  // }, [onModify, layouts]);
 
   useEffect(() => {
     handleBreakpointChange(breakPoint);
   }, [breakPoint]);
 
-  console.log('---------------------')
-  console.log(userboard);
-  
   return (
     <>
       <ResponsiveGridLayout 

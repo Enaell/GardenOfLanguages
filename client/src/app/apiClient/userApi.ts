@@ -56,7 +56,7 @@ export const userApi = {
     }
 
     try {
-      const res = await fetch(`http://localhoset:3020/api/users/${username}`, {
+      const res = await fetch(`http://localhost:3020/api/users/${username}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Accept': 'application/json',
@@ -72,18 +72,4 @@ export const userApi = {
         return {success: false, message: error.message}
     }
   },
-  // updateUserboard: async (userboard: UserboardType, token: string) => {
-  //   if (token) {      
-  //     await fetch(`http://localhost:5000/api/users/${username}/`,
-  //     {
-  //         headers: {
-  //           'Authorization': `Bearer ${token}`,
-  //           'Accept': 'application/json',
-  //           'Content-Type': 'application/json'
-  //             },
-  //         method: "PUT",
-  //         body: JSON.stringify(userboard)
-  //     })
-  //   }
-  // }
 }

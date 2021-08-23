@@ -26,19 +26,4 @@ export class AuthController {
           user
       })
   }
-
-  @UseGuards(JWtAuthGuard)
-  @Get('')
-  @UseGuards(JWtAuthGuard)
-  @Get('/greet')
-  async loggedIn(@AuthUser() user: any) {
-    try {
-      Logger.log('============================');
-      Logger.log(user)
-      return user;
-    } catch(e) {
-      Logger.log(e);
-      return false;
-    }
-  }
 }

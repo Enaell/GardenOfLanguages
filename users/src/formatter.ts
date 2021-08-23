@@ -1,7 +1,8 @@
 import { UserDocument } from "./schemas/users.schema";
-import { Blocks } from "./types";
+import { BlockDimensions, Blocks, Userboard } from "./types";
+import { UpdateUserboardDTO } from "./userboard/dto/update-userboard.dto";
 
-export function formatUserboard(blocks: Blocks) {
+export function blocksToUserboard(blocks: Blocks) {
   return blocks.reduce((obj, item) => {
     return {
       ...obj,
@@ -15,6 +16,20 @@ export function formatUserboard(blocks: Blocks) {
   }, {});
 }
 
+export function userboardToBlocks(userboard: UpdateUserboardDTO) {
+  return Object.keys(userboard).map((key => {
+      return (
+          {
+              name: key,
+              lg: userboard[key].lg,
+              md: userboard[key].md,
+              sm: userboard[key].sm,
+              xs: userboard[key].xs
+          }
+      )
+  }));
+};
+
 export function formatUser(user: UserDocument) {
   return {
     role: user.role,
@@ -24,7 +39,7 @@ export function formatUser(user: UserDocument) {
     language: user.language,
     targetLanguage: user.targetLanguage,
     levels: user.levels,
-    userboard: user.userboard?.blocks ? formatUserboard(user.userboard.blocks): undefined,
+    userboard: user.userboard?.blocks ? blocksToUserboard(user.userboard.blocks): undefined,
     createAt: user.createAt,
   }
-}
+};

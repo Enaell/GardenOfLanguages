@@ -1,5 +1,5 @@
-import { Blocks } from "src/types";
+import { Userboard } from "src/types";
 
 export class UpdateUserboardDTO {
-  readonly blocks: Blocks
+  readonly userboard: Userboard
 }
