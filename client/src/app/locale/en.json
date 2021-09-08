@@ -16,7 +16,11 @@
     "visitor": "Try it out!",
     "moreDetails": "More Details",
     "subject": "Subject",
-    "send": "Send my message"
+    "send": "Send my message",
+    "snackbar": {
+      "authError": "Email adress or Password invalid",
+      "registerError": "Couldn't register your account. Please try again later"
+    }
   },
   "landingPage": {
     "sections": {

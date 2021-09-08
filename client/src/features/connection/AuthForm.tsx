@@ -38,7 +38,7 @@ export const AuthForm = ({ isModal = false }: RegisterFormProps) => {
           if (loggedUser.success)
             dispatch(login(loggedUser.message));
           else {
-            dispatch(opensnackbar('error', 'coucou'));
+            dispatch(opensnackbar('error', translate('connection.snackbar.authError')));
           }
         } catch (e) {
         }

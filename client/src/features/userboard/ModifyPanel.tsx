@@ -38,7 +38,6 @@ export const ModifyPanel = ({
   cancelModification,
   addOptions,
   handleAddSelect,
-  addingModule,
 }: {
   squareSide: number; 
   onModify: boolean;
@@ -47,7 +46,6 @@ export const ModifyPanel = ({
   cancelModification: () => void;
   addOptions: string[];
   handleAddSelect: (moduleToAdd: string) => void;
-  addingModule: boolean;
 }) => {
   const [opacity, setOpacity] = useState({opacity: 0.2} as {opacity: 0.2} | {})
 
@@ -99,7 +97,6 @@ export const ModifyPanel = ({
             style={{zIndex: 50, width: '60%', height: '60%'}}
           />
         </SideButton>
-        { !addingModule &&
         <SideButton squareSide={squareSide} onClick={()=>{cancelModification()}}>
           <CloseIcon 
             htmlColor={'#6b8268'} 
@@ -107,7 +104,6 @@ export const ModifyPanel = ({
             style={{zIndex: 50, width: '60%', height: '60%'}}
           />
         </SideButton>
-        }
       </> :
       <SideButton squareSide={squareSide} onClick={() => setOnModify(true)}>
         <CreateOutlinedIcon 

@@ -35,6 +35,7 @@ function getLayoutToAdd(
 }
 
 function layoutsAreResizable(layouts: {lg: Layout[];md: Layout[];sm: Layout[];xs: Layout[];}, onModify: boolean) {
+  console.log('layoutAreResizable')
   return ({
     lg: layouts.lg.map((l: Layout)=> ({...l, isResizable: onModify, isDraggable: onModify })),
     md: layouts.md.map((l: Layout)=> ({...l, isResizable: onModify, isDraggable: onModify })),
@@ -66,12 +67,11 @@ export const UserBoard = () => {
 
   const [breakPoint, setBreakPoint] = useState('lg' as BreakpointType);
 
-  const [addingModule, setAddingModule] = useState(false);
-
   const [marginWidth, setMarginWidth] = useState(150);
 
   const onLayoutChange = (layout: Layout[]) => {
     let newBoard = {...newUserboard};
+
     layout.forEach(element => {
         newBoard[element.i] = {...newBoard[element.i]}
         newBoard[element.i][breakPoint] = {x: element.x, y: element.y, w: element.w, h:element.h}
@@ -93,41 +93,36 @@ export const UserBoard = () => {
   const saveUserBoard = async () => {
       dispatch(updateUserboard(newUserboard));
       userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
-      // await userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
-      setAddingModule(false);
-
+      await userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
   }
 
   const cancelModification = () => {
-    if (userboard)
+    if (userboard){
       setNewUserboard(userboard);
+      setLayouts(getBlocksLayoutsFromModule({...userboard}, false));
+    }
     setOnModify(false);
-    setLayouts(layoutsAreResizable(layouts, false));
   }
 
   const deleteModule = (moduleName: string ) => {
     let newModules = {...newUserboard};
     delete newModules[moduleName];
+    setLayouts(getBlocksLayoutsFromModule({...newModules}, onModify));
     setNewUserboard(newModules);
   }
 
   const addModule = async (moduleToAdd: string, gridLayouts: {[bp in BreakpointType]: {[key: string]: Layout;};}) => {
     let newModules: UserboardType = {...newUserboard};
-    let newUserBoardModules: UserboardType = {...userboard};
     const modules = {
-      lg:{x: gridLayouts.lg[moduleToAdd].x, y: gridLayouts.lg[moduleToAdd].y, w: gridLayouts.lg[moduleToAdd].w, h: gridLayouts.lg[moduleToAdd].h},
+      lg:{x: 0, y: Infinity, w: gridLayouts.lg[moduleToAdd].w, h: gridLayouts.lg[moduleToAdd].h},
       md:{x: gridLayouts.md[moduleToAdd].x, y: gridLayouts.md[moduleToAdd].y, w: gridLayouts.md[moduleToAdd].w, h: gridLayouts.md[moduleToAdd].h},
       sm:{x: gridLayouts.sm[moduleToAdd].x, y: gridLayouts.sm[moduleToAdd].y, w: gridLayouts.sm[moduleToAdd].w, h: gridLayouts.sm[moduleToAdd].h},
       xs:{x: gridLayouts.xs[moduleToAdd].x, y: gridLayouts.xs[moduleToAdd].y, w: gridLayouts.xs[moduleToAdd].w, h: gridLayouts.xs[moduleToAdd].h},
     }
     newModules[moduleToAdd] = modules;
-    newUserBoardModules[moduleToAdd] = modules;
     
-    dispatch(updateUserboard(newUserboard));
-    userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
-    //await userApi.update({username, userboard: newUserboard, token, language, targetLanguage});
+    setLayouts(getBlocksLayoutsFromModule({...newModules}, true));
     setNewUserboard(newModules);
-    setAddingModule(true);
     setOnModify(true);
   }
 
@@ -153,7 +148,7 @@ export const UserBoard = () => {
         cols={{lg: 12, md: 10, sm: 6, xs: 4}}
         rowHeight={150}
         width={1300}>
-          {userboard && (Object.keys(userboard) as ModuleNamesType[]).map((m) => {
+          {newUserboard && (Object.keys(newUserboard) as ModuleNamesType[]).map((m) => {
             return ( 
               <Column width='100%' key={m}>
                 <ModuleBlock 
@@ -178,7 +173,6 @@ export const UserBoard = () => {
         cancelModification={cancelModification}
         addOptions={getLayoutToAdd(newUserboard, gridLayouts, breakPoint)}
         handleAddSelect={moduleName => addModule(moduleName, gridLayouts)}
-        addingModule={addingModule}
       />
     </>
   )
