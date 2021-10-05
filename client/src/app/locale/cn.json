@@ -153,5 +153,41 @@
     "wordOfTheDay": "Word of the Day",
     "manga": "Manga",
     "culture": "Culture"
+  },
+  "api":{
+    "dictionary": {
+      "getAllWords": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "createWord": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "updateWord": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "deleteWord": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "getAllDecks": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "createDecks": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "updateDeck": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      },
+      "deleteDeck": {
+        "success": "",
+        "error": "Something wrong happened, please try again later"
+      }
+    }
   }
 }

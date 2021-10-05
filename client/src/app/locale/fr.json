@@ -82,15 +82,15 @@
     "alphabeticOrder": "Ordre Alphabétique",
     "levelOrder": "Ordre par Niveau",
     "filter": "filtre",
-    "wordListPanel": {
+    "deckPanel": {
       "title": "Gestionnaire de Liste",
-      "wordLists": "Liste de mots",
+      "decks": "Liste de mots",
       "words": "Mots",
       "add": "Ajouter",
       "save": "Sauvegarder",
       "newList": "Nouvelle Liste"
     },
-    "wordList": {
+    "deck": {
       "owner": "Créée par",
       "name": "Nom",
       "subject": "Sujets",
@@ -153,5 +153,41 @@
     "wordOfTheDay": "Mot du Jour",
     "manga": "Manga",
     "culture": "Culture"
+  },
+  "api":{
+    "dictionary": {
+      "getAllWords": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "createWord": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "updateWord": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "deleteWord": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "getAllDeckss": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "createDecks": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "updateDeck": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      },
+      "deleteDeck": {
+        "success": "",
+        "error": "Une erreur est survenue, merci de rééssayer plus tard"
+      }
+    }
   }
 }
