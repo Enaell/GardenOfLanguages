@@ -1,18 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { dictionaryApi } from '../apiClient/dictionaryApi';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { opensnackbar } from '../redux/snackbarSlice';
 import { userState } from '../redux/userSlice';
 import { DeckType, WordType } from '../types/word';
+import { cleanTranslations } from '../utils/dictionary';
 import { renameObjectKey } from '../utils/object';
 
 export function useDecks() {
 
   const { token, language, targetLanguage  } = useAppSelector(userState);
-
-  const history = useHistory();
-  const { url } = useRouteMatch();
 
   const dispatch = useAppDispatch();
 
@@ -27,72 +24,101 @@ export function useDecks() {
   }, [token, language, targetLanguage]);
 
 
-  function createDeck( deck: DeckType){
+  async function createDeck( deck: DeckType){
     setDecks({...decks, [deck.name]: deck});
-    history.replace(`${url}/${deck.name}`);
     if (token)
-      dictionaryApi.createDecks([deck], token).then(res=>{
-        res.success && dispatch(opensnackbar('error', res.message as string));
-      });
+      dictionaryApi.createDecks([deck], token).then(res=> 
+        !res.success && dispatch(opensnackbar('error', res.message as string))
+      );
   };
   
   async function updateDeck(deck: DeckType, wordListOldName?: string){
-    if (!token)
-      return {success: false, message: 'User not logged'};
-
-      setDecks(wordListOldName && wordListOldName !== deck.name
+    setDecks(wordListOldName && wordListOldName !== deck.name
       ? {...renameObjectKey({[wordListOldName]: deck.name}, decks), [deck.name]: deck}
       : {...decks, [deck.name]: deck});
-    return await dictionaryApi.updateDeck(deck, token);
+    if (token)
+      dictionaryApi.updateDeck(deck, token).then(res=> 
+        !res.success && dispatch(opensnackbar('error', res.message as string))
+      );
   };
 
   async function deleteDeck(deck: DeckType){
-    let wls = {...decks}
-    if (!token)
-      return {success: false, message: 'User not logged'};
-    if (!deck.id)
-      return {success: false, message: 'No deck Id'};
-    const statusDeleteWl = await dictionaryApi.deleteDeck(deck.id, token);
-    if (statusDeleteWl.success) {
-      delete wls[deck.name];
-      setDecks({...wls});
-    }
-    return statusDeleteWl;
+    let newDecks = {...decks}
+    delete newDecks[deck.name];
+    setDecks({...newDecks});
+    if (deck.id && token)
+     dictionaryApi.deleteDeck(deck.id, token).then(res=> 
+      !res.success && dispatch(opensnackbar('error', res.message as string))
+    );
   }
 
-  async function removeWordFromDeck(wordName: string, wordListName: string){
-    if (!token)
-      return {success: false, message: 'User not logged'};
+  async function removeWordFromDeck(wordName: string, deckName: string){
     let wls = {...decks};
-    delete wls[wordListName].words[wordName];
+    delete wls[deckName].words[wordName];
     setDecks({...wls})
-    return await dictionaryApi.updateDeck(decks[wordListName], token);
+    if(token)
+      dictionaryApi.updateDeck(decks[deckName], token).then(res=> 
+        !res.success && dispatch(opensnackbar('error', res.message as string))
+      );
   }
 
-  async function addWordToDeck(word: WordType, wordListName: string) {
-    if ( !token)
-      return {success: false, message: 'User not logged'};
-
-      const wordListUpdated = {
-        ...decks[wordListName], 
-        words: { ...decks[wordListName].words, [word.name]: word }
-      };
+  async function addWordToDeck(word: WordType, deckName: string): Promise<DeckType> {
+    const deckUpdated: DeckType = {
+      ...decks[deckName], 
+      words: { ...decks[deckName].words, [word.name]: word }
+    };
 
     setDecks({
       ...decks,
-      [wordListName]: wordListUpdated
+      [deckName]: deckUpdated
     });
 
-    return await dictionaryApi.updateDeck(wordListUpdated, token)
+    if (token) {
+      const res = await dictionaryApi.updateDeck(deckUpdated, token);
+      if (res.success)
+        return res.message;
+      dispatch(opensnackbar('error', res.message as string));
+    }
+    
+    return deckUpdated;
+  }
+
+  async function createWordInDeck(word: WordType, deckName: string): Promise<DeckType> {
+    const deckId = decks[deckName].id;
+    
+    const cleanWord = cleanTranslations(word);
+    
+
+    if (deckId && token) {
+      const res = await dictionaryApi.createWordsInDeck(deckId, [cleanWord], token)
+      if (res.success) {
+        setDecks({...decks, [deckName]: res.message});
+        return res.message;
+      }
+      dispatch(opensnackbar('error', res.message as string));
+    }
+
+    const deckUpdated: DeckType = { 
+      ...decks[deckName], 
+      words: { ...decks[deckName].words, [cleanWord.name]: {...cleanWord, id: cleanWord.name} }
+    };
+
+    setDecks({
+      ...decks,
+      [deckName]: deckUpdated
+    });
+
+    return deckUpdated
+
   }
 
   return {
-    url,
     decks,
     createDeck,
     updateDeck,
     deleteDeck,
     removeWordFromDeck,
+    createWordInDeck,
     addWordToDeck,
   };
 }

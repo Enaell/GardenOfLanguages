@@ -3,14 +3,16 @@ import { Switch as RouterSwitch, useHistory, useRouteMatch } from 'react-router-
 import { Typography } from '@material-ui/core';
 import translate from 'counterpart';
 import { Route } from 'react-router-dom';
-import { Decks } from './decks';
-import { Words } from './words';
 import { useDecks } from '../../app/hooks/deckHook';
-import { DecksForm } from './wordLists/DecksForm';
-import { WordForm } from './words/WordForm';
-import { FindWordPanel } from './words/FindWordPanel';
 import { DeckType, WordType } from '../../app/types/word';
 import { Column, Row } from '../common/Flexbox';
+import { useWords } from '../../app/hooks/wordHook';
+import { renameObjectKey } from '../../app/utils/object';
+import { Decks } from './Decks';
+import { DeckForm } from './DeckForm';
+import { Words } from '../words/Words';
+import { WordForm } from '../words/WordForm';
+import { FindWordPanel } from '../dictionary/DictionaryPanel';
 
 const height = {
   minHeight: 'calc(100vh - 300px)',
@@ -20,42 +22,55 @@ const height = {
 
 export const DecksPanel = () => {
   const { 
-    url,
-    decks, 
+    decks,
     createDeck,
     updateDeck,
     deleteDeck,
     removeWordFromDeck,
+    createWordInDeck,
     addWordToDeck,
   } = useDecks();
 
   const {
     words,
     createWord,
+    addWord,
     updateWord
   } = useWords();
 
-  async function createDeckAndUpdatePath(newDecks: DeckType) {
-    const newWlStatus = await createDecks(newDecks);
-    return newWlStatus;
+  const history = useHistory();
+  const { url } = useRouteMatch();
+
+  async function createDeckAndUpdatePath(newDeck: DeckType) {
+    createDeck(newDeck);
+    history.replace(`${url}/${newDeck.name}`);
   }
 
-  async function updateWlAndPath(newDecks: DeckType, wordListOldName?: string | undefined) {
-    const newWlStatus = await updateDecks(newDecks, wordListOldName);
-    history.replace(`${url}/${newDecks.name}`)
-    return newWlStatus;
+  async function updateDeckAndPath(newDeck: DeckType, deckOldName?: string) {
+    updateDeck(newDeck, deckOldName);
+    history.replace(`${url}/${newDeck.name}`)
   }
 
-  async function deleteWl(wordList: DeckType){
-    const newWlStatus = await deleteDecks(wordList);
+  async function deleteDeckAndUpdatePath(deck: DeckType){
+    deleteDeck(deck);
     history.replace(`${url}/`);
-    return newWlStatus;
   }
 
-  async function updateWordAndPath (newWord: WordType, wordListName: string, wordName: string) {
-    const newWStatus = await updateWord(newWord, wordListName, wordName);
-    history.replace(`${url}/${wordListName}/words/${newWord.name}`);
-    return newWStatus;
+  async function updateWordAndPath (newWord: WordType, deckName: string, oldWordName: string) {
+    const cleanWord = await updateWord(newWord);
+    const newDeck = newWord.name === oldWordName ? { 
+      ...decks[deckName], words: {...decks[deckName].words, [newWord.name]: cleanWord}
+    } : {
+      ...decks[deckName], words: renameObjectKey({[oldWordName]: cleanWord.name}, decks[deckName].words)
+    };
+    updateDeck(newDeck);
+    history.replace(`${url}/${deckName}/words/${newWord.name}`);
+  }
+
+  async function createWordInDeckAndUpdatePath(newWord: WordType, deckName: string) {
+    const deck = await createWordInDeck(newWord, deckName);
+    addWord(deck.words[newWord.name]);
+    history.replace(`${url}/${deckName}/words/${newWord.name}`);
   }
 
   return(
@@ -65,9 +80,9 @@ export const DecksPanel = () => {
         <Row style={height}>
           <Decks
             path={url && `${url}`}
-            wordLists={wordLists}
-            onAddDecks={() => history.replace(`${url}/create`)}
-            onDeleteDecks={deleteWl}
+            decks={decks}
+            onAddDeck={() => history.replace(`${url}/create`)}
+            onDeleteDeck={deleteDeckAndUpdatePath}
             onSortEnd={()=>{}}
           />
           <RouterSwitch>
@@ -76,25 +91,25 @@ export const DecksPanel = () => {
               path={`${url}/create`}
               render={() => {
                 return (
-                  <DecksForm
+                  <DeckForm
                     create
                     onSave={createDeckAndUpdatePath}
                   />)
               }}
             />
             <Route
-              path={`${url}/:wordlistname`}
-              render={({ match: {params: {wordlistname}} }) => {
-                if (wordLists && wordLists[wordlistname])
+              path={`${url}/:deckName`}
+              render={({ match: {params: {deckName}} }) => {
+                if (decks && decks[deckName])
                   return (
                     <Words
-                      path={`${url}/${wordlistname}/words`}
-                      words={wordLists && wordLists[wordlistname] && wordLists[wordlistname].words}
-                      onAddWord={() => history.replace(`${url}/${wordlistname}/words/addToList`)}
-                      onDeleteWord={(name: string) => {
-                        removeWordFromDecks(name, wordlistname);
-                        if (history.location.pathname.split('/').pop() === name)
-                          history.replace(`${url}/${wordlistname}`);
+                      path={`${url}/${deckName}/words`}
+                      words={decks && decks[deckName] && decks[deckName].words}
+                      onAddWord={() => history.replace(`${url}/${deckName}/words/addToDeck`)}
+                      onDeleteWord={(deckName: string) => {
+                        removeWordFromDeck(deckName, deckName);
+                        if (history.location.pathname.split('/').pop() === deckName)
+                          history.replace(`${url}/${deckName}`);
                       }}
                       onSortEnd={() => {}}
                     />
@@ -106,57 +121,42 @@ export const DecksPanel = () => {
           <RouterSwitch>
             <Route
               exact
-              path={`${url}/:wordlistname/words/addToList`}
+              path={`${url}/:deckName/words/addToDeck`}
               render={({ match }) => {
-                const wordListName = String(match.params.wordlistname);
-                if (user.role !== 'Visitor' && wordLists && wordLists[wordListName])
-                  return <FindWordPanel 
-                      path={`${url}/${wordListName}/words/createAndAdd`}  
-                      level={user.levels?.find(level => level.language === user.targetLanguage)?.rank} 
-                      words={words}
-                      wordListWordsName={Object.keys(wordLists[wordListName].words)}
-                      addWord={(word: WordType) => addWordToDecks(word, wordListName)}
-                    />;
-                return <div></div>
+                const deckName = String(match.params.deckName);
+                return (
+                  <FindWordPanel 
+                    path={`${url}/${deckName}/words/createAndAdd`}  
+                    words={words}
+                    deckWordsNames={Object.keys(decks[deckName].words)}
+                    addWord={(word: WordType) => addWordToDeck(word, deckName)}
+                  />
+                );
               }}
             />
             <Route 
               exact
-              path={`${url}/:wordlistname/words/createAndAdd`}
+              path={`${url}/:deckName/words/createAndAdd`}
               render={({ match }) => {
-                const wordListName = String(match.params.wordlistname);
-                if (user.role !== 'Visitor' && wordLists && wordLists[wordListName]){
-                  return (
-                    <WordForm
-                      isAdmin={user.role === 'Admin' || user.role==='Moderator'}
-                      isOwner={true}
-                      word={undefined}
+                const wordListName = String(match.params.deckName);
+                   return <WordForm
                       create
-                      onSave={(newWord) => createWordInDecks(newWord, wordListName)}
-                      language={user.language}
-                      targetLanguage={user.targetLanguage}
+                      onSave={(newWord) => createWordInDeckAndUpdatePath(newWord, wordListName)}
                     />
-                  )
                 }
-                return <div></div>
-              }}
+              }
             />
             <Route
-              path={`${url}/:wordlistname/words/:wordname`}
+              path={`${url}/:deckName/words/:wordname`}
               render={({ match }) => {
                 const wordName = String(match.params.wordname);
-                const wordListName = String(match.params.wordlistname);
-                if (wordLists && wordLists[wordListName]) {
-                  const word = wordLists[wordListName].words && wordLists[wordListName].words[wordName];
+                const wordListName = String(match.params.deckName);
+                if (decks && decks[wordListName]) {
+                  const word = decks[wordListName].words && decks[wordListName].words[wordName];
                   if (word)
                     return <WordForm
-                      isAdmin={user.role === 'Admin' || user.role==='Moderator'}
-                      isOwner={user.username === word.owner}
                       word={word}
-                      create={false}
                       onSave={(newWord) => updateWordAndPath(newWord, wordListName, wordName) } 
-                      language={user.language}
-                      targetLanguage={user.targetLanguage}
                     />
                 }
                 return (<div></div>)
@@ -164,17 +164,13 @@ export const DecksPanel = () => {
             />
             <Route
               exact
-              path={`${url}/:wordlistname`}
-              render={({ match: {params: {wordlistname}} }) => {
-                if (wordLists && wordLists[wordlistname]) {
+              path={`${url}/:deckName`}
+              render={({ match: {params: {deckName}} }) => {
+                if (decks && decks[deckName]) {
                   return ( 
-                    <DecksForm
-                      adminRole={user.role === 'Admin' || user.role === 'Moderator'}
-                      wordList={wordLists[wordlistname]}
-                      canModify={user.role === 'Admin' || user.role === 'Moderator' || wordLists[wordlistname].owner === user.username}
-                      onSave={updateWlAndPath}
-                      language={user.language}
-                      targetLanguage={user.targetLanguage}
+                    <DeckForm
+                      deck={decks[deckName]}
+                      onSave={updateDeckAndPath}
                     />
                   );
                 } 

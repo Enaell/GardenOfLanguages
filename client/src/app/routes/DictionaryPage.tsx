@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Row } from '../../features/common/Flexbox';
+import { DecksPanel } from '../../features/decks/DecksPanel';
 
 
 export const DictionaryPage = () => {
@@ -9,7 +10,7 @@ export const DictionaryPage = () => {
         <Route
           key={'dictionary_wordlists'}
           path={'/dictionary/wordlists'}
-          render={props => <DecksPanel {...props} />}
+          render={() => <DecksPanel />}
         />
         <Route
           key={'dictionary'}

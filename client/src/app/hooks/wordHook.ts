@@ -1,18 +1,18 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { dictionaryApi } from '../apiClient/dictionaryApi';
-import { useAppSelector } from '../redux/hooks';
 import { userState } from '../redux/userSlice';
-import { DeckType, WordType } from '../types/word';
+import { WordType } from '../types/word';
 import { cleanTranslations } from '../utils/dictionary';
+import { opensnackbar } from '../redux/snackbarSlice';
 
 export function useWords() {
 
-  const { token, language, targetLanguage  } = useAppSelector(userState);
-  
-  const history = useHistory();
-  const { url } = useRouteMatch();
-  
+  const { token, targetLanguage  } = useAppSelector(userState);
+    
+  const dispatch = useAppDispatch();
+
   const [words, setWords] = useState([] as WordType[]);
   
   useEffect(() => {
@@ -23,35 +23,41 @@ export function useWords() {
     words.sort((a, b) => a.internationalName > b.internationalName ? 1 : -1)
   }, [words]);
 
-  async function createWord(newWord:WordType) {
-    if (!token)
-      return {success: false, message: 'User not logged'};
-
-      const cleanWord = cleanTranslations(newWord);
-
-      setWords([...words, newWord]);
-  
-      await dictionaryApi.updateWord(cleanWord, token);
+  function addWord(newWord: WordType) {
+    const cleanWord = cleanTranslations(newWord);
+    setWords([...words, cleanWord]);
+    return cleanWord;
   }
 
-  async function updateWord(newWord: WordType){
-    if (!token)
-      return {success: false, message: 'User not logged'};
-
+  async function createWord(newWord:WordType) {
     const cleanWord = cleanTranslations(newWord);
+    setWords([...words, cleanWord]);
+    if (token) {
+      const res = await dictionaryApi.updateWord(cleanWord, token); 
+      if (res.success)
+        return res.message as WordType
+      dispatch(opensnackbar('error', res.message as string)) 
+    }
+    return cleanWord;
+  };
 
+  async function updateWord(newWord: WordType){
+    const cleanWord = cleanTranslations(newWord);
     setWords(words.map(word => ( word.id === cleanWord.id ? cleanWord : word)));
-
-    await dictionaryApi.updateWord(cleanWord, token);
-
-    return cleanWord; 
+    if(token) {
+      const res = await dictionaryApi.updateWord(cleanWord, token); 
+      if (res.success)
+        return res.message
+      dispatch(opensnackbar('error', res.message as string))
+    }
+    return cleanWord;
   };
 
   return {
-    url,
     words,
     createWord,
-    updateWord
+    updateWord,
+    addWord,
   }
 
 }
