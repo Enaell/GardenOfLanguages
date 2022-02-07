@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Button, TextField, Typography, Switch, FormControlLabel } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import translate from 'counterpart';
-import { useWordListFormFields } from './DeckFormhooks';
 import { DeckType } from '../../app/types/word';
 import { Column, Row } from '../common/Flexbox';
 import { subjects, visibilities } from '../../app/constants';
@@ -182,4 +181,8 @@ export const DeckForm = ({
       </Column>
     </form>
   );
+}
+
+function useWordListFormFields(deck: DeckType | undefined): { fields: any; errors: any; canSave: any; checkError: any; setCheckError: any; setFields: any; } {
+  throw new Error('Function not implemented.');
 }

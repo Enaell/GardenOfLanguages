@@ -1,0 +1,29 @@
+@baseUrl = http://localhost:3020/api/auth
+
+# @name auth
+POST {{baseUrl}}/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "a@a.fr",
+  "password": "a"
+}
+
+###
+
+# @name register
+POST {{baseUrl}}/signin
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "a@a.fr",
+  "username": "a",
+  "password": "a",
+  "language": "Fr",
+  "targetLanguage": "Cn"
+}
+
+###
+

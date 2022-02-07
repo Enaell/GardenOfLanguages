@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import { IconButton, Typography } from '@material-ui/core';
 import { SortableElement, SortableHandle } from 'react-sortable-hoc';
-import { WordType } from '../../../common/types';
+import { WordType } from '../../app/types/word';
 
 const DragHandle = SortableHandle(() => <span style={{position: "relative", top: '1px', display:'block', width: '18px', height:'11px', opacity:'0.25', marginRight: '9px', cursor: 'grab', background: 'linear-gradient(180deg, #000, #000 20%, #fff 0, #fff 40%, #000 0, #000 60%, #fff 0, #fff 80%, #000 0, #000)'}}/>)
 

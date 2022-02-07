@@ -12,11 +12,11 @@ export const DictionaryPage = () => {
           path={'/dictionary/wordlists'}
           render={() => <DecksPanel />}
         />
-        <Route
+        {/* <Route
           key={'dictionary'}
           path={'/dictionary/words'}
           render={ props => <Dictionary {...props} />}
-        />
+        /> */}
       </Row>
     );
 }

@@ -11,7 +11,8 @@ import { RequestUserboard } from 'src/types';
 export class UsersService {
   constructor(
     @Inject('USER_CLIENT')
-    private readonly client: ClientProxy) {}
+    private readonly client: ClientProxy
+  ) {}
 
   async createUser(createUserDTO: CreateUserDTO): Promise<any> {
     try {
@@ -118,6 +119,7 @@ export class UsersService {
       Logger.log('============ Send update ===============');
       Logger.log(resUser);
       Logger.log(resUserboard);
+      delete resUser.password;
       return resUser
     } catch(e) {
       Logger.log(e);

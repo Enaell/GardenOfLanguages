@@ -22,7 +22,7 @@ export const userApi = {
     }
     catch (error) {
       console.log(error);
-      return {success: false, message: error.message}
+      return {success: false, message: error}
     }
   },
   auth: async (email: string, password: string) => {
@@ -46,7 +46,7 @@ export const userApi = {
     }
     catch (error) {
       console.log(error);
-      return {success: false, message: error.message}
+      return {success: false, message: error}
     }
   },
   update: async (user: UserType) => {
@@ -69,7 +69,7 @@ export const userApi = {
       return {success: true, message: json};
     } catch (error) {
         console.log(error);
-        return {success: false, message: error.message}
+        return {success: false, message: error}
     }
   },
 }

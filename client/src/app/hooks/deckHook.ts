@@ -25,11 +25,17 @@ export function useDecks() {
 
 
   async function createDeck( deck: DeckType){
-    setDecks({...decks, [deck.name]: deck});
-    if (token)
-      dictionaryApi.createDecks([deck], token).then(res=> 
-        !res.success && dispatch(opensnackbar('error', res.message as string))
-      );
+    const newDecks = {...decks, [deck.name]: deck}
+    if (token) {
+      const res = await dictionaryApi.createDecks([deck], token);
+      if (res.success) {
+        setDecks({...decks, [deck.name]: res.message[0]});
+        return res.message[0];
+      }
+      dispatch(opensnackbar('error', res.message as string))
+    }
+    setDecks(newDecks);
+    return 
   };
   
   async function updateDeck(deck: DeckType, wordListOldName?: string){
@@ -46,20 +52,24 @@ export function useDecks() {
     let newDecks = {...decks}
     delete newDecks[deck.name];
     setDecks({...newDecks});
-    if (deck.id && token)
-     dictionaryApi.deleteDeck(deck.id, token).then(res=> 
-      !res.success && dispatch(opensnackbar('error', res.message as string))
-    );
+    if (deck.id && token){
+      const res = await dictionaryApi.deleteDeck(deck.id, token);
+      if (!res.success)
+        dispatch(opensnackbar('error', res.message as string))
+    } 
+    return newDecks
   }
 
-  async function removeWordFromDeck(wordName: string, deckName: string){
-    let wls = {...decks};
-    delete wls[deckName].words[wordName];
-    setDecks({...wls})
-    if(token)
-      dictionaryApi.updateDeck(decks[deckName], token).then(res=> 
-        !res.success && dispatch(opensnackbar('error', res.message as string))
-      );
+  async function removeWordFromDeck(wordName: string, deckName: string) {
+    let newDecks = {...decks};
+    delete newDecks[deckName].words[wordName];
+    setDecks({...newDecks})
+    if(token) {
+      const res = await dictionaryApi.updateDeck(decks[deckName], token); 
+      if (res.success)
+        return res.message;
+      dispatch(opensnackbar('error', res.message as string))
+    }
   }
 
   async function addWordToDeck(word: WordType, deckName: string): Promise<DeckType> {
@@ -85,9 +95,7 @@ export function useDecks() {
 
   async function createWordInDeck(word: WordType, deckName: string): Promise<DeckType> {
     const deckId = decks[deckName].id;
-    
     const cleanWord = cleanTranslations(word);
-    
 
     if (deckId && token) {
       const res = await dictionaryApi.createWordsInDeck(deckId, [cleanWord], token)
@@ -107,9 +115,7 @@ export function useDecks() {
       ...decks,
       [deckName]: deckUpdated
     });
-
     return deckUpdated
-
   }
 
   return {

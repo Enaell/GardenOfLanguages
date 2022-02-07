@@ -22,39 +22,39 @@ function getErrorFromField(
   }
 }
 
-export function useWordListFormFields(wordList?: DeckType)
+export function usedeckFormFields(deck?: DeckType)
 {
 
   const [fields, setFields] = useState({ 
-    name: wordList?.name || '',
-    subject: wordList?.subject || [],
-    level: wordList?.level || 0,
-    rank: wordList?.rank || 0,
-    validated: wordList?.validated || false,
-    visibility: wordList?.visibility || "owner" as VisibilityType,
-    comments: wordList?.comments || ''
+    name: deck?.name || '',
+    subject: deck?.subject || [],
+    level: deck?.level || 0,
+    rank: deck?.rank || 0,
+    validated: deck?.validated || false,
+    visibility: deck?.visibility || "owner" as VisibilityType,
+    comments: deck?.comments || ''
    });
   const [errors, setErrors] = useState({
-    name: !wordList?.name,
-    subject: !wordList?.subject,
-    level: !(wordList?.level || wordList?.level === 0),
-    rank: !(wordList?.rank || wordList?.rank === 0),
-    visibility: !wordList?.visibility 
+    name: !deck?.name,
+    subject: !deck?.subject,
+    level: !(deck?.level || deck?.level === 0),
+    rank: !(deck?.rank || deck?.rank === 0),
+    visibility: !deck?.visibility 
   });
   const [canSave, setCanSave] = useState(false);
   const [checkError, setCheckError] = useState(false);
 
   useEffect(()=> {
     setFields({ 
-      name: wordList?.name || '',
-      subject: wordList?.subject || [],
-      level: wordList?.level || 0,
-      rank: wordList?.rank || 0,
-      validated: wordList?.validated || true,
-      visibility: wordList?.visibility || "owner" as VisibilityType,
-      comments: wordList?.comments || ''
+      name: deck?.name || '',
+      subject: deck?.subject || [],
+      level: deck?.level || 0,
+      rank: deck?.rank || 0,
+      validated: deck?.validated || true,
+      visibility: deck?.visibility || "owner" as VisibilityType,
+      comments: deck?.comments || ''
      })
-  }, [wordList]);
+  }, [deck]);
 
   useMemo(()=> {
     const findError = Object.keys(errors).find((error) => errors[error as 'name' | 'subject' | 'level' | 'rank' | 'visibility'])

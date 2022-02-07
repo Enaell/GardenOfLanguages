@@ -1,0 +1,140 @@
+@authUrl = http://localhost:3020/api/auth
+
+@userApiUrl = http://localhost:3020/api/users
+@userName = a
+@token = bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ3VzdG9tZXIiLCJ1c2VybmFtZSI6ImEiLCJuYW1lIjoiYSIsInBhc3N3b3JkIjoiJDJiJDEwJDRKVldiOWZJSlFrVUFJZ1ZESWRJL08velUuQWVHRldZRFk5Y3dJNnRyNDZJemlaYjhuVmhDIiwibGFuZ3VhZ2UiOiJGciIsInRhcmdldExhbmd1YWdlIjoiQ24iLCJsZXZlbHMiOlt7Imxhbmd1YWdlIjoiRnIiLCJyYW5rIjo2fSx7Imxhbmd1YWdlIjoiQ24iLCJyYW5rIjoxfV0sInVzZXJib2FyZCI6eyJmYXN0RXhlcmNpY2UiOnsibGciOnsieCI6MywieSI6MCwidyI6NiwiaCI6NH0sIm1kIjp7IngiOjUsInkiOjAsInciOjYsImgiOjJ9LCJzbSI6eyJ4IjozLCJ5IjowLCJ3IjozLCJoIjo0fSwieHMiOnsieCI6MywieSI6MCwidyI6MywiaCI6NH19LCJuZXdzIjp7ImxnIjp7IngiOjAsInkiOjAsInciOjMsImgiOjJ9LCJtZCI6eyJ4IjowLCJ5IjowLCJ3IjozLCJoIjoyfSwic20iOnsieCI6MCwieSI6MCwidyI6MiwiaCI6Mn0sInhzIjp7IngiOjAsInkiOjAsInciOjEsImgiOjF9fSwid29yZE9mVGhlRGF5Ijp7ImxnIjp7IngiOjAsInkiOjIsInciOjMsImgiOjJ9LCJtZCI6eyJ4IjowLCJ5IjoyLCJ3IjozLCJoIjoyfSwic20iOnsieCI6MCwieSI6MiwidyI6MywiaCI6Mn0sInhzIjp7IngiOjAsInkiOjEsInciOjMsImgiOjJ9fSwiY3VsdHVyZSI6eyJsZyI6eyJ4Ijo5LCJ5IjowLCJ3IjozLCJoIjo0fSwibWQiOnsieCI6MCwieSI6MTAwLCJ3IjozLCJoIjoyfSwic20iOnsieCI6MCwieSI6MTAwLCJ3IjozLCJoIjoyfSwieHMiOnsieCI6MCwieSI6MTAwLCJ3IjozLCJoIjoyfX19LCJjcmVhdGVBdCI6IjIwMjEtMTAtMjJUMTQ6NDY6NDcuMTc2WiIsImlhdCI6MTYzNDkxNTE0OSwiZXhwIjoxNjM0OTIyMzQ5fQ.ACvxTj0UbqNBhArhbJtCng056EldTDJuhPdrbDzP_60
+
+# @name auth
+POST {{authUrl}}/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "a@a.fr",
+  "password": "a"
+}
+
+
+###
+
+@authToken = {{auth.response.body.user.token}}
+
+//update user
+PATCH {{userApiUrl}}/{{{{userName}}}}
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "username":"a",
+  "language":"Fr",
+  "targetLanguage":"Cn",
+  "userboard":{
+    "fastExercice":{
+      "lg":{
+        "x":3,
+        "y":0,
+        "w":6,
+        "h":4
+      },
+      "md":{
+        "x":5,
+        "y":0,
+        "w":6,
+        "h":2
+        },
+      "sm":{
+        "x":3,
+        "y":0,
+        "w":3,
+        "h":4
+      },
+      "xs":{
+        "x":3,
+        "y":0,
+        "w":3,
+        "h":4
+      }
+    },
+    "news":{
+      "lg":{
+        "x":0,
+        "y":0,
+        "w":3,
+        "h":2
+      },
+      "md":{
+        "x":0,
+        "y":0,
+        "w":3,
+        "h":2
+      },
+      "sm":{
+        "x":0,
+        "y":0,
+        "w":2,
+        "h":2
+      },
+      "xs":{
+        "x":0,
+        "y":0,
+        "w":1,
+        "h":1
+      }
+    },
+    "wordOfTheDay":{
+      "lg":{
+        "x":0,
+        "y":2,
+        "w":3,
+        "h":2
+      },
+      "md":{
+        "x":0,
+        "y":2,
+        "w":3,
+        "h":2
+      },
+      "sm":{
+        "x":0,
+        "y":2,
+        "w":3,
+        "h":2
+      },
+      "xs":{
+        "x":0,
+        "y":1,
+        "w":3,
+        "h":2
+      }
+    },
+    "culture":{
+      "lg":{
+        "x":9,
+        "y":0,
+        "w":3,
+        "h":4
+      },
+      "md":{
+        "x":0,
+        "y":100,
+        "w":3,
+        "h":2
+      },
+      "sm":{
+        "x":0,
+        "y":100,
+        "w":3,
+        "h":2
+      },
+      "xs":{
+        "x":0,
+        "y":100,
+        "w":3,
+        "h":2
+      }
+    }
+  }
+}
+
+###
+
